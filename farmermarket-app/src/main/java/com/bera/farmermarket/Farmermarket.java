@@ -130,7 +130,7 @@ public class Farmermarket {
           seasonalProduceGuide();
           break;
         case 3:
-          out.println("he");
+          purchasingTransactionsAndPriceComparison();
           break;
         case 4:
           out.println("he");
@@ -442,7 +442,7 @@ public class Farmermarket {
       out.print("Please select an option: ");
 
       int choice = scanner.nextInt();
-      scanner.nextLine(); // newline karakterini okumak ve atlamak için
+      scanner.nextLine();
 
       if (choice == 5) {
         break;
@@ -466,4 +466,202 @@ public class Farmermarket {
     }
     return true;
   }
+  private int lcs(String X, String Y) {
+    int m = X.length();
+    int n = Y.length();
+    int[][] L = new int[m+1][n+1];
+
+    for (int i=0; i<=m; i++) {
+      for (int j=0; j<=n; j++) {
+        if (i == 0 || j == 0)
+          L[i][j] = 0;
+        else if (X.charAt(i-1) == Y.charAt(j-1))
+          L[i][j] = L[i-1][j-1] + 1;
+        else
+          L[i][j] = Math.max(L[i-1][j], L[i][j-1]);
+      }
+    }
+    return L[m][n];
+  }
+
+  private boolean compareAndPrintLCS(String season1, String season2, String name1, String name2, int price) {
+    int lcsLength = lcs(name1, name2);
+
+    if (lcsLength > 0 ) {
+      out.printf("|- Name 1: %s, Name 2: %s, Price: %d\n", name1, name2, price);
+      return true;
+    }
+    return false;
+  }
+  public int knapsack(int W, int[] wt, int[] val, int n, int[] selectedItems) {
+    int i, w;
+    int K[][] = new int[n+1][W+1];
+
+    for (i = 0; i <= n; i++) {
+      for (w = 0; w <= W; w++) {
+        if (i==0 || w==0)
+          K[i][w] = 0;
+        else if (wt[i-1] <= w)
+          K[i][w] = Math.max(val[i-1] + K[i-1][w-wt[i-1]], K[i-1][w]);
+        else
+          K[i][w] = K[i-1][w];
+      }
+    }
+
+    int res = K[n][W];
+    w = W;
+    for (i = n; i > 0 && res > 0; i--) {
+      if (res == K[i-1][w])
+        continue;
+      else {
+        selectedItems[i-1] = 1;
+        res = res - val[i-1];
+        w = w - wt[i-1];
+      }
+    }
+    return res;
+  }
+  public boolean suggestPurchases(int budget) {
+    int[] wt = new int[productSeasons.length];
+    int[] val = new int[productSeasons.length];
+    for (int i = 0; i < productSeasons.length; i++) {
+      wt[i] = productSeasons[i].getPrice();
+      val[i] = 1;
+    }
+
+    int[] selectedItems = new int[productSeasons.length];
+    int maxValue = knapsack(budget, wt, val, productSeasons.length, selectedItems);
+    out.println("+----------------------------------------------------+");
+    out.println("| Your budget: " + budget + "|");
+    out.println("+----------------------------------------------------+");
+    out.println("| Suggested purchases to maximize value within budget: |");
+    out.println("+----------------------------------------------------+");
+    boolean anySelected = false;
+    for (int i = 0; i < productSeasons.length; i++) {
+      if (selectedItems[i] == 1) {
+        out.println("|- " + productSeasons[i].getName() + " for " + productSeasons[i].getPrice());
+        anySelected = true;
+      }
+    }
+    if (!anySelected) {
+      out.println("No products suggested. Increase your budget or check back later for different options.");
+    }
+    out.println("+----------------------------------------------------+");
+    return anySelected;
+  }
+  public boolean compareProducts() throws IOException {
+    out.print("Enter a season: ");
+    String selectedSeason = scanner.nextLine();
+
+    boolean validSeason = false;
+    boolean found = false;
+    for (ProductSeason productSeason : productSeasons) {
+      if (productSeason.getSeason().equalsIgnoreCase(selectedSeason)) {
+        validSeason = true;
+      }
+    }
+    if (!validSeason) {
+      out.println("Invalid season. Please enter a valid season.");
+      take_enter_input();
+      return false;
+    }
+    out.println("+-----------------------------------------------------+");
+    out.println("|Products at the same price as " + selectedSeason + " season products:");
+    out.println("+-----------------------------------------------------+");
+    for (int i = 0; i < productSeasons.length; i++) {
+      if (productSeasons[i].getSeason().equalsIgnoreCase(selectedSeason)) {
+        for (int j = i + 1; j < productSeasons.length; j++) {
+          if (productSeasons[i].getPrice() == productSeasons[j].getPrice()) {
+            compareAndPrintLCS(selectedSeason, productSeasons[j].getSeason(), productSeasons[i].getName(), productSeasons[j].getName(), productSeasons[i].getPrice());
+            found = true;
+          }
+        }
+      }
+    }
+    out.println("+-----------------------------------------------------+");
+    return true;
+  }
+  public boolean buyProducts() {
+    out.print("Please enter the product name you wish to buy: ");
+    String productQuery = scanner.nextLine();
+
+    boolean productFound = false;
+    int productPrice = 0;
+    String vendorName = null;
+
+    for (ProductSeason productSeason : productSeasons) {
+      if (productSeason.getName().equalsIgnoreCase(productQuery)) {
+        productFound = true;
+        productPrice = productSeason.getPrice();
+        break;
+      }
+    }
+    if (!productFound) {
+      out.println("Product not found. Please ensure the product name is spelled correctly.");
+      return false;
+    } else if (budget < productPrice) {
+      out.printf("Insufficient budget to buy %s. Your current budget is %d.\n", productQuery, budget);
+      return false;
+    } else {
+      budget -= productPrice;
+      out.printf("You have successfully purchased %s for %d. Remaining budget: %d.\n", productQuery, productPrice, budget);
+      return true;
+    }
+  }
+  public boolean purchasingTransactionsAndPriceComparison() throws IOException, InterruptedException {
+    while (true) {
+      clearScreen();
+      out.println("+----------------------------------+");
+      out.println("|  PURCHASING AND PRICE COMPARISON |");
+      out.println("+----------------------------------+");
+      out.println("| 1. Shopping Suggestion           |");
+      out.println("| 2. Compare Products              |");
+      out.println("| 3. Buy Products                  |");
+      out.println("| 4. Exit                          |");
+      out.println("+----------------------------------+");
+      out.print("Please select an option: ");
+      if (!scanner.hasNextInt()) {
+        out.print("Invalid choice. Please enter a number.\n");
+        take_enter_input();
+        scanner.next();
+        continue;
+      }
+      int choice = scanner.nextInt();
+      scanner.nextLine();
+
+      switch (choice) {
+        case 1:
+          clearScreen();
+          if (guestMode) {
+            out.println("You cannot take suggestions in guest mode.");
+          } else {
+            suggestPurchases(budget);
+          }
+          take_enter_input();;
+          break;
+        case 2:
+          clearScreen();
+          compareProducts();
+          take_enter_input();
+          break;
+        case 3:
+          clearScreen();
+          if (guestMode) {
+            out.println("You cannot buy products in guest mode.");
+          } else {
+            buyProducts();
+          }
+          take_enter_input();
+          break;
+        case 4:
+          return true;
+        default:
+          out.println("Invalid option, please try again.");
+          take_enter_input();
+          break;
+      }
+    }
+  }
+
+  
 }
