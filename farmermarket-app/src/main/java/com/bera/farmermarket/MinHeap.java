@@ -52,4 +52,8 @@ public class MinHeap {
             heapify(smallest);
         }
     }
+
+    public boolean isEmpty() {
+        return items.isEmpty();
+    }
 }

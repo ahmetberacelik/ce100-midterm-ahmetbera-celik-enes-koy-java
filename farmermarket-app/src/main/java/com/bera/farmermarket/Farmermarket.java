@@ -29,7 +29,24 @@ public class Farmermarket {
           {"Veli", "Cucumber", "Tomato", "Orange", "Radish"},
           {"Ayse", "Pear", "Nectarine", "Bean", "Hazelnut"}
   };
-
+  ProductSeason[] productSeasons = {
+          new ProductSeason(10, "Banana", "Summer"),
+          new ProductSeason(10, "Apple", "Fall"),
+          new ProductSeason(15, "Grape", "Fall"),
+          new ProductSeason(30, "Spinach", "Spring"),
+          new ProductSeason(15, "Raspberry", "Summer"),
+          new ProductSeason(20, "Beet", "Fall"),
+          new ProductSeason(25, "Turnip", "Winter"),
+          new ProductSeason(30, "Peas", "Spring"),
+          new ProductSeason(25, "Cucumber", "Summer"),
+          new ProductSeason(30, "Tomato", "Summer"),
+          new ProductSeason(30, "Orange", "Winter"),
+          new ProductSeason(15, "Radish", "Spring"),
+          new ProductSeason(35, "Pear", "Fall"),
+          new ProductSeason(35, "Nectarine", "Summer"),
+          new ProductSeason(40, "Bean", "Summer"),
+          new ProductSeason(40, "Hazelnut", "Fall")
+  };
   private int budget;
   boolean guestMode = false;
   /**
@@ -110,7 +127,7 @@ public class Farmermarket {
           listingOfInfos();
           break;
         case 2:
-          out.println("he");
+          seasonalProduceGuide();
           break;
         case 3:
           out.println("he");
@@ -316,6 +333,7 @@ public class Farmermarket {
 
     for (String[] vendorProducts : products) {
       quickSort(vendorProducts, 1, vendorProducts.length - 1);
+      clearScreen();
       int result = binarySearch(vendorProducts, 1, vendorProducts.length - 1, productQuery);
       if (result != -1) {
         out.println("Product " + productQuery + " found at vendor " + vendorProducts[0]);
@@ -366,5 +384,86 @@ public class Farmermarket {
           break;
       }
     }
+  }
+  public void saveProductSeason(ProductSeason[] productSeasons, String filename) throws IOException {
+    try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(filename))) {
+      dos.writeInt(productSeasons.length);
+      for (ProductSeason productSeason : productSeasons) {
+        dos.writeInt(productSeason.getPrice());
+        dos.writeUTF(productSeason.getName());
+        dos.writeUTF(productSeason.getSeason());
+      }
+    }
+  }
+
+  public int loadProductSeasonsAndPrint(String filename, String selectedSeason) throws IOException {
+    int found = 0;
+    try (DataInputStream dis = new DataInputStream(new FileInputStream(filename))) {
+      int numProducts = dis.readInt();
+
+      MinHeap heap = new MinHeap();
+      for (int i = 0; i < numProducts; i++) {
+        int price = dis.readInt();
+        String name = dis.readUTF();
+        String season = dis.readUTF();
+
+        if (season.equalsIgnoreCase(selectedSeason)) {
+          heap.insert(new ProductSeason(price, name, season));
+          found++;
+        }
+      }
+
+      while (!heap.isEmpty()) {
+        ProductSeason ps = heap.remove();
+        out.printf("|- Price: %d, Name: %s\n", ps.getPrice(), ps.getName());
+      }
+      out.println("+------------------------------------+");
+      take_enter_input();
+    }
+    return found;
+  }
+  public boolean seasonalProduceGuide() throws IOException, InterruptedException {
+    clearScreen();
+    String filename = "ProductSeasons.bin";
+    saveProductSeason(productSeasons, filename);
+    while (true) {
+      clearScreen();
+      out.println("+------------------------------------------+");
+      out.println("|      SEASONAL PRODUCE GUIDE              |");
+      out.println("+------------------------------------------+");
+      out.println("| Select a season to see available produce:|");
+      out.println("+------------------------------------------+");
+      out.println("| 1. Spring                                |");
+      out.println("| 2. Summer                                |");
+      out.println("| 3. Fall                                  |");
+      out.println("| 4. Winter                                |");
+      out.println("| 5. Return to Main Menu                   |");
+      out.println("+------------------------------------------+");
+      out.print("Please select an option: ");
+
+      int choice = scanner.nextInt();
+      scanner.nextLine(); // newline karakterini okumak ve atlamak için
+
+      if (choice == 5) {
+        break;
+      }
+
+      String selectedSeason = null;
+      switch (choice) {
+        case 1: selectedSeason = "Spring"; break;
+        case 2: selectedSeason = "Summer"; break;
+        case 3: selectedSeason = "Fall"; break;
+        case 4: selectedSeason = "Winter"; break;
+        default:
+          out.println("Invalid option, please try again.");
+          continue;
+      }
+      clearScreen();
+      out.println("+------------------------------------+");
+      out.printf("|Available produce for %s season:%n", selectedSeason);
+      out.println("+------------------------------------+");
+      loadProductSeasonsAndPrint(filename, selectedSeason);
+    }
+    return true;
   }
 }
