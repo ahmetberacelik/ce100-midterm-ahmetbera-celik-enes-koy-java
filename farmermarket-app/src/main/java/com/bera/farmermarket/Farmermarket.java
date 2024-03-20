@@ -22,6 +22,8 @@ public class Farmermarket {
   private Scanner scanner; /**<Scanner for user input in the Library System. */
   private PrintStream out; /**<PrintStream for output in the Library System. */
   private String filename = "Users.bin";
+  private static final int N = 4;
+  private int[][] dp;
   String[] vendors = { "Ahmet", "Mehmet", "Veli", "Ayse" };
   String[][] products = {
           {"Ahmet", "Banana", "Apple", "Grape", "Spinach"},
@@ -47,6 +49,20 @@ public class Farmermarket {
           new ProductSeason(40, "Bean", "Summer"),
           new ProductSeason(40, "Hazelnut", "Fall")
   };
+  int[][] productPrices = {
+          {10, 10, 15, 30},
+          {15, 20, 25, 30},
+          {25, 30, 30, 15},
+          {35, 35, 40, 40}
+  };
+
+  int[][] productQuantities = {
+          {100, 28, 30, 50},
+          {75, 27, 46, 18},
+          {15, 73, 48, 24},
+          {17, 43, 64, 37}
+  };
+  int[] dimensions = {4,4,4};
   private int budget;
   boolean guestMode = false;
   /**
@@ -133,7 +149,7 @@ public class Farmermarket {
           purchasingTransactionsAndPriceComparison();
           break;
         case 4:
-          out.println("he");
+          marketInformations();
           break;
         case 5:
           out.println("Exiting program...Press enter!");
@@ -228,10 +244,10 @@ public class Farmermarket {
           take_enter_input();
           break;
         case 2:
-          out.println("Please enter your username: ");
+          out.print("Please enter your username: ");
           temp_username = scanner.nextLine();
 
-          out.println("Please enter your password: ");
+          out.print("Please enter your password: ");
           temp_password = scanner.nextLine();
 
           User newUser = new User(temp_username, temp_password);
@@ -353,7 +369,7 @@ public class Farmermarket {
       out.println("+----------------------------+");
       out.println("| 1. Browse Vendors          |");
       out.println("| 2. Search Product          |");
-      out.println("| 3. Exit                    |");
+      out.println("| 3. Return to Main Menu     |");
       out.println("+----------------------------+");
       out.print("Please select an option: ");
       if (!scanner.hasNextInt()) {
@@ -562,7 +578,6 @@ public class Farmermarket {
     }
     if (!validSeason) {
       out.println("Invalid season. Please enter a valid season.");
-      take_enter_input();
       return false;
     }
     out.println("+-----------------------------------------------------+");
@@ -617,7 +632,7 @@ public class Farmermarket {
       out.println("| 1. Shopping Suggestion           |");
       out.println("| 2. Compare Products              |");
       out.println("| 3. Buy Products                  |");
-      out.println("| 4. Exit                          |");
+      out.println("| 4. Return to Main Menu           |");
       out.println("+----------------------------------+");
       out.print("Please select an option: ");
       if (!scanner.hasNextInt()) {
@@ -662,6 +677,124 @@ public class Farmermarket {
       }
     }
   }
+  private void recursiveMatrixMultiply(int[][] A, int[][] B, int[][] C, int rowA, int colA, int rowB, int colB, int size) {
+    if (size == 1) {
+      C[rowA][colB] += A[rowA][colA] * B[rowB][colB];
+    } else {
+      int newSize = size / 2;
+      // Top-left
+      recursiveMatrixMultiply(A, B, C, rowA, colA, rowB, colB, newSize);
+      recursiveMatrixMultiply(A, B, C, rowA, colA + newSize, rowB + newSize, colB, newSize);
 
-  
+      // Top-right
+      recursiveMatrixMultiply(A, B, C, rowA, colA, rowB, colB + newSize, newSize);
+      recursiveMatrixMultiply(A, B, C, rowA, colA + newSize, rowB + newSize, colB + newSize, newSize);
+
+      // Bottom-left
+      recursiveMatrixMultiply(A, B, C, rowA + newSize, colA, rowB, colB, newSize);
+      recursiveMatrixMultiply(A, B, C, rowA + newSize, colA + newSize, rowB + newSize, colB, newSize);
+
+      // Bottom-right
+      recursiveMatrixMultiply(A, B, C, rowA + newSize, colA, rowB, colB + newSize, newSize);
+      recursiveMatrixMultiply(A, B, C, rowA + newSize, colA + newSize, rowB + newSize, colB + newSize, newSize);
+    }
+  }
+  private void initializeDP(int n) {
+    dp = new int[n][n];
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n; j++) {
+        dp[i][j] = -1;
+      }
+    }
+  }
+  private int MCM_MemorizedRecursive(int[] dimensions, int i, int j) {
+    if (i == j) {
+      return 0;
+    }
+    if (dp[i][j] != -1) {
+      return dp[i][j];
+    }
+    int min = Integer.MAX_VALUE;
+    for (int k = i; k < j; k++) {
+      int count = MCM_MemorizedRecursive(dimensions, i, k) + MCM_MemorizedRecursive(dimensions, k + 1, j)
+              + dimensions[i - 1] * dimensions[k] * dimensions[j];
+      if (count < min) {
+        min = count;
+      }
+    }
+    dp[i][j] = min;
+    return min;
+  }
+
+  private int MCM_DynamicProgramming(int[] dimensions) {
+    int n = dimensions.length;
+    int[][] dp = new int[n][n];
+
+    for (int i = 1; i < n; i++) {
+      dp[i][i] = 0;
+    }
+
+    for (int chainLen = 2; chainLen < n; chainLen++) {
+      for (int i = 1; i < n - chainLen + 1; i++) {
+        int j = i + chainLen - 1;
+        dp[i][j] = Integer.MAX_VALUE;
+        for (int k = i; k < j; k++) {
+          int q = dp[i][k] + dp[k + 1][j] + dimensions[i - 1] * dimensions[k] * dimensions[j];
+          if (q < dp[i][j]) {
+            dp[i][j] = q;
+          }
+        }
+      }
+    }
+    return dp[1][n - 1];
+  }
+  public boolean marketInformations() throws IOException, InterruptedException {
+    clearScreen();
+    while (true) {
+      clearScreen();
+      System.out.println("+------------------------------------------------+");
+      System.out.println("|             MARKET INFORMATIONS                |");
+      System.out.println("+------------------------------------------------+");
+      System.out.println("| 1. Market's Total Income Information           |");
+      System.out.println("| 2. The Minimum Multiplication Cost Information |");
+      System.out.println("| 3. Return to Main Menu                         |");
+      System.out.println("+------------------------------------------------+");
+      System.out.print("Please select an option: ");
+      if (!scanner.hasNextInt()) {
+        out.print("Invalid choice. Please enter a number.\n");
+        take_enter_input();
+        scanner.next();
+        continue;
+      }
+      int choice = scanner.nextInt();
+      scanner.nextLine();
+
+      switch (choice) {
+        case 1:
+          int[][] C = new int[N][N];
+          recursiveMatrixMultiply(productPrices, productQuantities, C, 0, 0, 0, 0, N);
+          int totalIncome = 0;
+          for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+              totalIncome += C[i][j];
+            }
+          }
+          System.out.println("Market's Total Income: " + totalIncome);
+          take_enter_input();
+          break;
+        case 2:
+          initializeDP(dimensions.length);
+          System.out.println("The Minimum Multiplication Cost with Memorized Recursive: " + MCM_MemorizedRecursive(dimensions, 1, dimensions.length - 1));
+          System.out.println("The Minimum Multiplication Cost with Dynamic Programming: " + MCM_DynamicProgramming(dimensions));
+          take_enter_input();
+          break;
+        case 3:
+          return true;
+        default:
+          System.out.println("Invalid option, please try again.");
+          take_enter_input();
+          break;
+      }
+    }
+  }
 }
