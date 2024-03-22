@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="25ee8cdc-462b-46a7-a363-74ce6c4f0d90" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../assets/badge_branchcoverage.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/badge_branchcoverage.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../assets/badge_combined.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/badge_combined.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../assets/badge_linecoverage.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/badge_linecoverage.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../assets/badge_methodcoverage.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/badge_methodcoverage.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Users.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Users.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bera/farmermarket/Farmermarket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bera/farmermarket/Farmermarket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bera/farmermarket/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bera/farmermarket/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/bera/farmermarket/FarmermarketTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bera/farmermarket/FarmermarketTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2e2chcgm3aLyxhyqTmTerldVfNP" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.FarmermarketApp.executor": "Run",
+    "JUnit.All in farmermarket-app.executor": "Run",
+    "JUnit.FarmermarketTest.SeasonalProduceGuideTest.executor": "Debug",
+    "JUnit.FarmermarketTest.UserAuthenticationLoginInvalidTest.executor": "Run",
+    "JUnit.FarmermarketTest.UserAuthenticationLoginTest.executor": "Run",
+    "JUnit.FarmermarketTest.executor": "Run",
+    "JUnit.FarmermarketTest.testKnapsack.executor": "Debug",
+    "JUnit.FarmermarketTest.testLcs.executor": "Debug",
+    "JUnit.FarmermarketTest.testTryParseInt.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "bera",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Bera/Desktop/ce100-midterm-ahmetbera-celik-enes-koy-java/farmermarket-app",
+    "settings.editor.selected.configurable": "preferences.editor"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="All in farmermarket-app" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="farmermarket-app" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FarmermarketTest.SeasonalProduceGuideTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="farmermarket-app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bera.farmermarket.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bera.farmermarket" />
+      <option name="MAIN_CLASS_NAME" value="com.bera.farmermarket.FarmermarketTest" />
+      <option name="METHOD_NAME" value="SeasonalProduceGuideTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FarmermarketTest.testKnapsack" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="farmermarket-app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bera.farmermarket.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bera.farmermarket" />
+      <option name="MAIN_CLASS_NAME" value="com.bera.farmermarket.FarmermarketTest" />
+      <option name="METHOD_NAME" value="testKnapsack" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FarmermarketTest.testLcs" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="farmermarket-app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bera.farmermarket.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bera.farmermarket" />
+      <option name="MAIN_CLASS_NAME" value="com.bera.farmermarket.FarmermarketTest" />
+      <option name="METHOD_NAME" value="testLcs" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FarmermarketTest.testTryParseInt" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="farmermarket-app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bera.farmermarket.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bera.farmermarket" />
+      <option name="MAIN_CLASS_NAME" value="com.bera.farmermarket.FarmermarketTest" />
+      <option name="METHOD_NAME" value="testTryParseInt" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.FarmermarketTest.testKnapsack" />
+        <item itemvalue="JUnit.FarmermarketTest.testLcs" />
+        <item itemvalue="JUnit.FarmermarketTest.SeasonalProduceGuideTest" />
+        <item itemvalue="JUnit.FarmermarketTest.testTryParseInt" />
+        <item itemvalue="JUnit.All in farmermarket-app" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="25ee8cdc-462b-46a7-a363-74ce6c4f0d90" name="Changes" comment="" />
+      <created>1711106233180</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1711106233180</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/farmermarket_app$FarmermarketTest_testTryParseInt.ic" NAME="FarmermarketTest.testTryParseInt Coverage Results" MODIFIED="1711108781801" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.bera.farmermarket.*</FILTER>
+    </SUITE>
+  </component>
+</project>

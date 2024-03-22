@@ -105,7 +105,7 @@ public class Farmermarket {
       out.flush();
     }
   }
-  private int tryParseInt(String value) {
+  public int tryParseInt(String value) {
     try {
       return Integer.parseInt(value);
     } catch (NumberFormatException e) {
@@ -146,7 +146,7 @@ public class Farmermarket {
           seasonalProduceGuide();
           break;
         case 3:
-          purchasingTransactionsAndPriceComparison();
+          purchasingTransactionsAndPriceComparison(guestMode);
           break;
         case 4:
           marketInformations();
@@ -163,11 +163,12 @@ public class Farmermarket {
     }
   }
 
-  public void saveUser(User user) throws IOException {
+  public int saveUser(User user) throws IOException {
     try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(filename, true))) {
       dos.writeUTF(user.getUsername());
       dos.writeUTF(user.getPassword());
     }
+    return 1;
   }
 
   public boolean authenticateUser(String username, String password) throws IOException {
@@ -456,7 +457,12 @@ public class Farmermarket {
       out.println("| 5. Return to Main Menu                   |");
       out.println("+------------------------------------------+");
       out.print("Please select an option: ");
-
+      if (!scanner.hasNextInt()) {
+        out.print("Invalid choice. Please enter a number.\n");
+        take_enter_input();
+        scanner.next();
+        continue;
+      }
       int choice = scanner.nextInt();
       scanner.nextLine();
 
@@ -472,6 +478,7 @@ public class Farmermarket {
         case 4: selectedSeason = "Winter"; break;
         default:
           out.println("Invalid option, please try again.");
+          take_enter_input();
           continue;
       }
       clearScreen();
@@ -482,7 +489,7 @@ public class Farmermarket {
     }
     return true;
   }
-  private int lcs(String X, String Y) {
+  public int lcs(String X, String Y) {
     int m = X.length();
     int n = Y.length();
     int[][] L = new int[m+1][n+1];
@@ -500,14 +507,13 @@ public class Farmermarket {
     return L[m][n];
   }
 
-  private boolean compareAndPrintLCS(String season1, String season2, String name1, String name2, int price) {
+  public boolean compareAndPrintLCS(String season1, String season2, String name1, String name2, int price) {
     int lcsLength = lcs(name1, name2);
 
     if (lcsLength > 0 ) {
       out.printf("|- Name 1: %s, Name 2: %s, Price: %d\n", name1, name2, price);
-      return true;
     }
-    return false;
+    return true;
   }
   public int knapsack(int W, int[] wt, int[] val, int n, int[] selectedItems) {
     int i, w;
@@ -596,7 +602,7 @@ public class Farmermarket {
     out.println("+-----------------------------------------------------+");
     return true;
   }
-  public boolean buyProducts() {
+  public boolean buyProducts(int local_budget) {
     out.print("Please enter the product name you wish to buy: ");
     String productQuery = scanner.nextLine();
 
@@ -614,16 +620,17 @@ public class Farmermarket {
     if (!productFound) {
       out.println("Product not found. Please ensure the product name is spelled correctly.");
       return false;
-    } else if (budget < productPrice) {
-      out.printf("Insufficient budget to buy %s. Your current budget is %d.\n", productQuery, budget);
+    } else if (local_budget < productPrice) {
+      out.printf("Insufficient budget to buy %s. Your current budget is %d.\n", productQuery, local_budget);
       return false;
     } else {
-      budget -= productPrice;
-      out.printf("You have successfully purchased %s for %d. Remaining budget: %d.\n", productQuery, productPrice, budget);
+      local_budget -= productPrice;
+      budget = local_budget;
+      out.printf("You have successfully purchased %s for %d. Remaining budget: %d.\n", productQuery, productPrice, local_budget);
       return true;
     }
   }
-  public boolean purchasingTransactionsAndPriceComparison() throws IOException, InterruptedException {
+  public boolean purchasingTransactionsAndPriceComparison(boolean localGuestMode) throws IOException, InterruptedException {
     while (true) {
       clearScreen();
       out.println("+----------------------------------+");
@@ -647,7 +654,7 @@ public class Farmermarket {
       switch (choice) {
         case 1:
           clearScreen();
-          if (guestMode) {
+          if (localGuestMode) {
             out.println("You cannot take suggestions in guest mode.");
           } else {
             suggestPurchases(budget);
@@ -661,10 +668,10 @@ public class Farmermarket {
           break;
         case 3:
           clearScreen();
-          if (guestMode) {
+          if (localGuestMode) {
             out.println("You cannot buy products in guest mode.");
           } else {
-            buyProducts();
+            buyProducts(budget);
           }
           take_enter_input();
           break;
@@ -677,7 +684,7 @@ public class Farmermarket {
       }
     }
   }
-  private void recursiveMatrixMultiply(int[][] A, int[][] B, int[][] C, int rowA, int colA, int rowB, int colB, int size) {
+  public void recursiveMatrixMultiply(int[][] A, int[][] B, int[][] C, int rowA, int colA, int rowB, int colB, int size) {
     if (size == 1) {
       C[rowA][colB] += A[rowA][colA] * B[rowB][colB];
     } else {
@@ -699,7 +706,7 @@ public class Farmermarket {
       recursiveMatrixMultiply(A, B, C, rowA + newSize, colA + newSize, rowB + newSize, colB + newSize, newSize);
     }
   }
-  private void initializeDP(int n) {
+  public void initializeDP(int n) {
     dp = new int[n][n];
     for (int i = 0; i < n; i++) {
       for (int j = 0; j < n; j++) {
@@ -707,7 +714,7 @@ public class Farmermarket {
       }
     }
   }
-  private int MCM_MemorizedRecursive(int[] dimensions, int i, int j) {
+  public int MCM_MemorizedRecursive(int[] dimensions, int i, int j) {
     if (i == j) {
       return 0;
     }
@@ -726,7 +733,7 @@ public class Farmermarket {
     return min;
   }
 
-  private int MCM_DynamicProgramming(int[] dimensions) {
+  public int MCM_DynamicProgramming(int[] dimensions) {
     int n = dimensions.length;
     int[][] dp = new int[n][n];
 
