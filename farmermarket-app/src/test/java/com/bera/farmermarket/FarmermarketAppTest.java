@@ -8,10 +8,7 @@ package com.bera.farmermarket;
 
 import static org.junit.Assert.*;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
+import java.io.*;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -26,29 +23,18 @@ import org.junit.Test;
  @author ugur.coruh
  */
 public class FarmermarketAppTest {
-
-  /**
-   * @brief This method is executed once before all test methods.
-   * @throws Exception
-   */
-  @BeforeClass
-  public static void setUpBeforeClass() throws Exception {
-  }
-
-  /**
-   * @brief This method is executed once after all test methods.
-   * @throws Exception
-   */
-  @AfterClass
-  public static void tearDownAfterClass() throws Exception {
-  }
-
+  private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+  private final PrintStream originalOut = System.out;
+  private final ByteArrayInputStream inContent = new ByteArrayInputStream("4\n".getBytes());
+  FarmermarketApp farmermarketapp = new FarmermarketApp();
   /**
    * @brief This method is executed before each test method.
    * @throws Exception
    */
   @Before
   public void setUp() throws Exception {
+    System.setOut(new PrintStream(outContent));
+    System.setIn(inContent);
   }
 
   /**
@@ -57,6 +43,17 @@ public class FarmermarketAppTest {
    */
   @After
   public void tearDown() throws Exception {
+    System.setOut(originalOut);
+    System.setIn(System.in);
   }
+  @Test
+  public void testFarmermarketAppMain() throws IOException, InterruptedException, ClassNotFoundException {
+    String[] args = null;
+    FarmermarketApp.main(args);
 
+    String expectedOutputStartsWith = "+---------------------------+";
+    String actualOutput = outContent.toString();
+
+    assertEquals(true, actualOutput.startsWith(expectedOutputStartsWith));
+  }
 }

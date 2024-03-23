@@ -23,7 +23,7 @@ public class Farmermarket {
   private PrintStream out; /**<PrintStream for output in the Library System. */
   private String filename = "Users.bin";
   private static final int N = 4;
-  private int[][] dp;
+  public int[][] dp;
   String[] vendors = { "Ahmet", "Mehmet", "Veli", "Ayse" };
   String[][] products = {
           {"Ahmet", "Banana", "Apple", "Grape", "Spinach"},
@@ -99,11 +99,7 @@ public class Farmermarket {
   public void clearScreen() throws InterruptedException, IOException {
     String operatingSystem = System.getProperty("os.name");
     if (operatingSystem.contains("Windows")) {
-      new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-    } else {
-      out.print("\033[H\033[2J");
-      out.flush();
-    }
+      new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();} else out.print("\033[H\033[2J"); out.flush();
   }
   public int tryParseInt(String value) {
     try {
@@ -113,8 +109,8 @@ public class Farmermarket {
     }
   }
 
-  public boolean mainMenu() throws IOException, InterruptedException, ClassNotFoundException {
-    if (!userAuthentication()) {
+  public boolean mainMenu(boolean authenticationResult) throws IOException, InterruptedException, ClassNotFoundException {
+    if (!authenticationResult) {
       return false;
     }
     while (true) {

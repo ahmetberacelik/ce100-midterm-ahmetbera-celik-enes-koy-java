@@ -9,12 +9,11 @@
       <change beforePath="$PROJECT_DIR$/../assets/badge_combined.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/badge_combined.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../assets/badge_linecoverage.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/badge_linecoverage.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../assets/badge_methodcoverage.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/badge_methodcoverage.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Users.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Users.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bera/farmermarket/Farmermarket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bera/farmermarket/Farmermarket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bera/farmermarket/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bera/farmermarket/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bera/farmermarket/FarmermarketApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bera/farmermarket/FarmermarketApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/bera/farmermarket/FarmermarketAppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bera/farmermarket/FarmermarketAppTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/bera/farmermarket/FarmermarketTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bera/farmermarket/FarmermarketTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,31 +35,58 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.FarmermarketApp.executor": "Run",
-    "JUnit.All in farmermarket-app.executor": "Run",
-    "JUnit.FarmermarketTest.SeasonalProduceGuideTest.executor": "Debug",
-    "JUnit.FarmermarketTest.UserAuthenticationLoginInvalidTest.executor": "Run",
-    "JUnit.FarmermarketTest.UserAuthenticationLoginTest.executor": "Run",
-    "JUnit.FarmermarketTest.executor": "Run",
-    "JUnit.FarmermarketTest.testKnapsack.executor": "Debug",
-    "JUnit.FarmermarketTest.testLcs.executor": "Debug",
-    "JUnit.FarmermarketTest.testTryParseInt.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "bera",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Bera/Desktop/ce100-midterm-ahmetbera-celik-enes-koy-java/farmermarket-app",
-    "settings.editor.selected.configurable": "preferences.editor"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.FarmermarketApp.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in farmermarket-app.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FarmermarketAppTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FarmermarketTest.MainMenuTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FarmermarketTest.MainMenuTest2.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.FarmermarketTest.SeasonalProduceGuideTest.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.FarmermarketTest.UserAuthenticationLoginInvalidTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FarmermarketTest.UserAuthenticationLoginTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FarmermarketTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FarmermarketTest.testKnapsack.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.FarmermarketTest.testLcs.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.FarmermarketTest.testTryParseInt.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;bera&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Bera/Desktop/ce100-midterm-ahmetbera-celik-enes-koy-java/farmermarket-app&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
-    <configuration name="All in farmermarket-app" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="FarmermarketTest.MainMenuTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="farmermarket-app" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bera.farmermarket.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bera.farmermarket" />
+      <option name="MAIN_CLASS_NAME" value="com.bera.farmermarket.FarmermarketTest" />
+      <option name="METHOD_NAME" value="MainMenuTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FarmermarketTest.MainMenuTest2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="farmermarket-app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bera.farmermarket.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bera.farmermarket" />
+      <option name="MAIN_CLASS_NAME" value="com.bera.farmermarket.FarmermarketTest" />
+      <option name="METHOD_NAME" value="MainMenuTest2" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -113,29 +139,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FarmermarketTest.testTryParseInt" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="farmermarket-app" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.bera.farmermarket.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.bera.farmermarket" />
-      <option name="MAIN_CLASS_NAME" value="com.bera.farmermarket.FarmermarketTest" />
-      <option name="METHOD_NAME" value="testTryParseInt" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.FarmermarketTest.MainMenuTest2" />
+        <item itemvalue="JUnit.FarmermarketTest.MainMenuTest" />
         <item itemvalue="JUnit.FarmermarketTest.testKnapsack" />
         <item itemvalue="JUnit.FarmermarketTest.testLcs" />
         <item itemvalue="JUnit.FarmermarketTest.SeasonalProduceGuideTest" />
-        <item itemvalue="JUnit.FarmermarketTest.testTryParseInt" />
-        <item itemvalue="JUnit.All in farmermarket-app" />
       </list>
     </recent_temporary>
   </component>

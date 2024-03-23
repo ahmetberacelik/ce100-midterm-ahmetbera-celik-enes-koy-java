@@ -26,6 +26,7 @@ public class FarmermarketTest {
   @Before
   public void setUp() throws Exception {
     System.setOut(new PrintStream(outContent));
+
   }
   /**
    * @brief This method is executed after each test method.
@@ -370,5 +371,79 @@ public class FarmermarketTest {
 
     Assert.assertTrue(result);
   }
-  
+  @Test
+  public void testRecursiveMatrixMultiply() {
+    int[][] A = {
+            {1, 2},
+            {3, 4}
+    };
+    int[][] B = {
+            {2, 0},
+            {1, 2}
+    };
+    int[][] C = new int[2][2];
+    farmermarket = new Farmermarket(System.in, System.out);
+    farmermarket.recursiveMatrixMultiply(A, B, C, 0, 0, 0, 0, 2);
+
+    Assert.assertArrayEquals(new int[]{4, 4}, C[0]);
+    Assert.assertArrayEquals(new int[]{10, 8}, C[1]);
+  }
+  @Test
+  public void testMCM_MemorizedRecursive() {
+    int[] dimensions = {1, 2, 3, 4};
+    farmermarket = new Farmermarket(System.in, System.out);
+    farmermarket.initializeDP(4);
+    int result = farmermarket.MCM_MemorizedRecursive(dimensions, 1, dimensions.length - 1);
+    Assert.assertEquals(18, result);
+  }
+  @Test
+  public void testMCM_MemorizedRecursive_WithPrecomputedValue() {
+    int[] dimensions = {1, 2, 3, 4};
+    farmermarket = new Farmermarket(System.in, System.out);
+    farmermarket.initializeDP(dimensions.length);
+    farmermarket.dp[1][3] = 10;
+    int result = farmermarket.MCM_MemorizedRecursive(dimensions, 1, 3);
+    Assert.assertEquals(10, result);
+  }
+  @Test
+  public void testMCM_DynamicProgramming() {
+    int[] dimensions = {1, 2, 3, 4};
+    farmermarket = new Farmermarket(System.in, System.out);
+    int result = farmermarket.MCM_DynamicProgramming(dimensions);
+    Assert.assertEquals(18, result);
+  }
+  @Test
+  public void MarketInformationsTotalIncomeTest() throws IOException, InterruptedException, ClassNotFoundException {
+    ByteArrayInputStream inContent = new ByteArrayInputStream("1\n\n2\n\n3\n".getBytes());
+    System.setIn(inContent);
+    farmermarket = new Farmermarket(System.in, System.out);
+    boolean result = farmermarket.marketInformations();
+
+    Assert.assertTrue(result);
+  }
+  @Test
+  public void MarketInformationsInvalidOptionTest() throws IOException, InterruptedException, ClassNotFoundException {
+    ByteArrayInputStream inContent = new ByteArrayInputStream("invalid\n\n525451\n\n3\n".getBytes());
+    System.setIn(inContent);
+    farmermarket = new Farmermarket(System.in, System.out);
+    boolean result = farmermarket.marketInformations();
+
+    Assert.assertTrue(result);
+  }
+  @Test
+  public void MainMenuTest() throws IOException, InterruptedException, ClassNotFoundException {
+    ByteArrayInputStream inContent = new ByteArrayInputStream("1\n3\n2\n5\n3\n4\n4\n3\nasddsa\n\n151\n\n5\n\n".getBytes());
+    System.setIn(inContent);
+    boolean authenticationResult = true;
+    farmermarket = new Farmermarket(System.in, System.out);
+    boolean result = farmermarket.mainMenu(authenticationResult);
+    Assert.assertTrue(result);
+  }
+  @Test
+  public void MainMenuTestReturnFalse() throws IOException, InterruptedException, ClassNotFoundException {
+    boolean authenticationResult = false;
+    farmermarket = new Farmermarket(System.in, System.out);
+    boolean result = farmermarket.mainMenu(authenticationResult);
+    Assert.assertFalse(result);
+  }
 }
