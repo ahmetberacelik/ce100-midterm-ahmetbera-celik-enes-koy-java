@@ -21,9 +21,9 @@ import java.util.Scanner;
 public class Farmermarket {
   private Scanner scanner; /**<Scanner for user input in the Library System. */
   private PrintStream out; /**<PrintStream for output in the Library System. */
-  private String filename = "Users.bin";
-  private static final int N = 4;
-  public int[][] dp;
+  private String filename = "Users.bin"; /**< The filename for storing user data. */
+  private static final int N = 4; /**< The constant size for arrays. */
+  public int[][] dp; /**< Dynamic programming array for memoization. */
   String[] vendors = { "Ahmet", "Mehmet", "Veli", "Ayse" };
   String[][] products = {
           {"Ahmet", "Banana", "Apple", "Grape", "Spinach"},
@@ -63,7 +63,7 @@ public class Farmermarket {
           {17, 43, 64, 37}
   };
   int[] dimensions = {4,4,4};
-  private int budget;
+  private int budget; /**< Variable to store the budget value. */
   boolean guestMode = false;
   /**
    * @brief Constructor for the Farmermarket class.
@@ -101,6 +101,13 @@ public class Farmermarket {
     if (operatingSystem.contains("Windows")) {
       new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();} else out.print("\033[H\033[2J"); out.flush();
   }
+  /**
+   * Parses the given string value to an integer if possible.
+   * If parsing fails, returns -1.
+   *
+   * @param value The string value to parse.
+   * @return The parsed integer value or -1 if parsing fails.
+   */
   public int tryParseInt(String value) {
     try {
       return Integer.parseInt(value);
@@ -108,7 +115,15 @@ public class Farmermarket {
       return -1;
     }
   }
-
+  /**
+   * Displays the main menu options and handles user input.
+   *
+   * @param authenticationResult The authentication result indicating whether the user is authenticated.
+   * @return True if the program should continue, false if it should exit.
+   * @throws IOException
+   * @throws InterruptedException
+   * @throws ClassNotFoundException
+   */
   public boolean mainMenu(boolean authenticationResult) throws IOException, InterruptedException, ClassNotFoundException {
     if (!authenticationResult) {
       return false;
@@ -158,7 +173,13 @@ public class Farmermarket {
       }
     }
   }
-
+  /**
+   * Saves the user information to a file.
+   *
+   * @param user The user object containing username and password.
+   * @return 1 if the user is successfully saved.
+   * @throws IOException
+   */
   public int saveUser(User user) throws IOException {
     try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(filename, true))) {
       dos.writeUTF(user.getUsername());
@@ -166,7 +187,14 @@ public class Farmermarket {
     }
     return 1;
   }
-
+  /**
+   * Authenticates the user by checking the provided username and password against stored records.
+   *
+   * @param username The username provided by the user.
+   * @param password The password provided by the user.
+   * @return True if the user is authenticated, false otherwise.
+   * @throws IOException
+   */
   public boolean authenticateUser(String username, String password) throws IOException {
     boolean isAuthenticated = false;
     try (DataInputStream dis = new DataInputStream(new FileInputStream(filename))) {
@@ -181,7 +209,14 @@ public class Farmermarket {
     }
     return isAuthenticated;
   }
-
+  /**
+   * Handles the user authentication process, allowing login, registration, or guest mode.
+   *
+   * @return True if the user is authenticated, false otherwise.
+   * @throws IOException
+   * @throws InterruptedException
+   * @throws ClassNotFoundException
+   */
   public boolean userAuthentication() throws IOException, InterruptedException, ClassNotFoundException {
     clearScreen();
     User user1 = new User("Ahmet Bera Celik", "qwerty");
@@ -269,12 +304,28 @@ public class Farmermarket {
       }
     }
   }
+  /**
+   * Swaps two elements in a string array.
+   *
+   * @param arr The string array.
+   * @param index1 The index of the first element to swap.
+   * @param index2 The index of the second element to swap.
+   * @return True if the swap is successful.
+   */
   public boolean swap(String[] arr, int index1, int index2) {
     String temp = arr[index1];
     arr[index1] = arr[index2];
     arr[index2] = temp;
     return true;
   }
+  /**
+   * Partitions the array for the quicksort algorithm.
+   *
+   * @param arr The string array to partition.
+   * @param low The starting index of the partition.
+   * @param high The ending index of the partition.
+   * @return The partition index.
+   */
   public int partition(String[] arr, int low, int high) {
     String pivot = arr[low + (int) (Math.random() * (high - low + 1))];
     int i = low - 1;
@@ -292,6 +343,14 @@ public class Farmermarket {
       swap(arr, i, j);
     }
   }
+  /**
+   * Sorts a string array using the quicksort algorithm.
+   *
+   * @param arr The string array to sort.
+   * @param low The starting index of the array.
+   * @param high The ending index of the array.
+   * @return True if sorting is successful.
+   */
   public boolean quickSort(String[] arr, int low, int high) {
     if (low < high) {
       int pi = partition(arr, low, high);
@@ -300,6 +359,15 @@ public class Farmermarket {
     }
     return true;
   }
+  /**
+   * Performs binary search on a sorted string array.
+   *
+   * @param arr The sorted string array to search.
+   * @param l The left index of the array.
+   * @param r The right index of the array.
+   * @param x The string to search for.
+   * @return The index of the found string or -1 if not found.
+   */
   public int binarySearch(String[] arr, int l, int r, String x) {
     if (r >= l) {
       int mid = l + (r - l) / 2;
@@ -314,6 +382,14 @@ public class Farmermarket {
     }
     return -1;
   }
+  /**
+   * Searches for a string in a sorted array and prints the result.
+   *
+   * @param arr The sorted array to search.
+   * @param size The size of the array.
+   * @param x The string to search for.
+   * @return True if the string is found, false otherwise.
+   */
   public boolean searchAndPrintResult(String[] arr, int size, String x) {
     int result = binarySearch(arr, 0, size - 1, x);
     if (result == -1) {
@@ -322,6 +398,13 @@ public class Farmermarket {
       return true;
     }
   }
+  /**
+   * Allows browsing vendors by name.
+   *
+   * @return True if the browsing is successful, false otherwise.
+   * @throws IOException
+   * @throws InterruptedException
+   */
   public boolean browseVendor() throws IOException, InterruptedException {
     out.print("Please enter vendor name: ");
     String vendorQuery = scanner.nextLine();
@@ -339,7 +422,13 @@ public class Farmermarket {
       return false;
     }
   }
-
+  /**
+   * Allows searching for a product by name.
+   *
+   * @return True if the product search is successful, false otherwise.
+   * @throws IOException
+   * @throws InterruptedException
+   */
   public boolean searchProduct() throws IOException, InterruptedException {
     out.print("Please enter product name: ");
     String productQuery = scanner.nextLine();
@@ -358,6 +447,13 @@ public class Farmermarket {
     take_enter_input();
     return false;
   }
+  /**
+   * Displays the listing of information menu and handles user input.
+   *
+   * @return True if the operation is successful, false otherwise.
+   * @throws IOException
+   * @throws InterruptedException
+   */
   public boolean listingOfInfos() throws IOException, InterruptedException {
     while (true) {
       clearScreen();
@@ -398,6 +494,13 @@ public class Farmermarket {
       }
     }
   }
+  /**
+   * Saves an array of ProductSeason objects to a binary file.
+   *
+   * @param productSeasons The array of ProductSeason objects to save.
+   * @param filename The name of the file to save the data.
+   * @throws IOException If an I/O error occurs while writing to the file.
+   */
   public void saveProductSeason(ProductSeason[] productSeasons, String filename) throws IOException {
     try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(filename))) {
       dos.writeInt(productSeasons.length);
@@ -408,7 +511,14 @@ public class Farmermarket {
       }
     }
   }
-
+  /**
+   * Loads ProductSeason objects from a binary file based on the selected season and prints them.
+   *
+   * @param filename The name of the file to load data from.
+   * @param selectedSeason The selected season for filtering.
+   * @return The number of products found for the selected season.
+   * @throws IOException If an I/O error occurs while reading from the file.
+   */
   public int loadProductSeasonsAndPrint(String filename, String selectedSeason) throws IOException {
     int found = 0;
     try (DataInputStream dis = new DataInputStream(new FileInputStream(filename))) {
@@ -435,6 +545,13 @@ public class Farmermarket {
     }
     return found;
   }
+  /**
+   * Displays the seasonal produce guide menu and handles user input.
+   *
+   * @return True if the operation is successful, false otherwise.
+   * @throws IOException If an I/O error occurs while reading or writing data.
+   * @throws InterruptedException If the thread executing the program is interrupted.
+   */
   public boolean seasonalProduceGuide() throws IOException, InterruptedException {
     clearScreen();
     String filename = "ProductSeasons.bin";
@@ -485,6 +602,13 @@ public class Farmermarket {
     }
     return true;
   }
+  /**
+   * Finds the length of the Longest Common Subsequence (LCS) between two strings.
+   *
+   * @param X The first string.
+   * @param Y The second string.
+   * @return The length of the LCS.
+   */
   public int lcs(String X, String Y) {
     int m = X.length();
     int n = Y.length();
@@ -502,7 +626,16 @@ public class Farmermarket {
     }
     return L[m][n];
   }
-
+  /**
+   * Compares two product names and prints their details if they have a common subsequence.
+   *
+   * @param season1 The first season name.
+   * @param season2 The second season name.
+   * @param name1 The first product name.
+   * @param name2 The second product name.
+   * @param price The price of the products.
+   * @return True if comparison and printing are successful.
+   */
   public boolean compareAndPrintLCS(String season1, String season2, String name1, String name2, int price) {
     int lcsLength = lcs(name1, name2);
 
@@ -511,6 +644,16 @@ public class Farmermarket {
     }
     return true;
   }
+  /**
+   * Solves the knapsack problem to suggest purchases within a given budget.
+   *
+   * @param W The budget limit.
+   * @param wt The array of product prices.
+   * @param val The array indicating the presence of products.
+   * @param n The number of products.
+   * @param selectedItems The array indicating selected items.
+   * @return The remaining budget after suggested purchases.
+   */
   public int knapsack(int W, int[] wt, int[] val, int n, int[] selectedItems) {
     int i, w;
     int K[][] = new int[n+1][W+1];
@@ -539,6 +682,12 @@ public class Farmermarket {
     }
     return res;
   }
+  /**
+   * Prints suggested purchases based on the knapsack solution within the given budget.
+   *
+   * @param budget The available budget for purchasing.
+   * @return True if there are suggested purchases, false otherwise.
+   */
   public boolean suggestPurchases(int budget) {
     int[] wt = new int[productSeasons.length];
     int[] val = new int[productSeasons.length];
@@ -546,7 +695,6 @@ public class Farmermarket {
       wt[i] = productSeasons[i].getPrice();
       val[i] = 1;
     }
-
     int[] selectedItems = new int[productSeasons.length];
     int maxValue = knapsack(budget, wt, val, productSeasons.length, selectedItems);
     out.println("+----------------------------------------------------+");
@@ -567,6 +715,12 @@ public class Farmermarket {
     out.println("+----------------------------------------------------+");
     return anySelected;
   }
+  /**
+   * Compares products in the same season based on price and prints products with the same price.
+   *
+   * @return True if comparison and printing are successful, false otherwise.
+   * @throws IOException If an I/O error occurs while reading data.
+   */
   public boolean compareProducts() throws IOException {
     out.print("Enter a season: ");
     String selectedSeason = scanner.nextLine();
@@ -598,6 +752,12 @@ public class Farmermarket {
     out.println("+-----------------------------------------------------+");
     return true;
   }
+  /**
+   * Allows the user to buy products within their budget and updates the budget accordingly.
+   *
+   * @param local_budget The budget available for the user.
+   * @return True if the purchase is successful, false otherwise.
+   */
   public boolean buyProducts(int local_budget) {
     out.print("Please enter the product name you wish to buy: ");
     String productQuery = scanner.nextLine();
@@ -626,6 +786,14 @@ public class Farmermarket {
       return true;
     }
   }
+  /**
+   * Displays the purchasing and price comparison menu and handles user input.
+   *
+   * @param localGuestMode Indicates whether the user is in guest mode or not.
+   * @return True if the operation is successful, false otherwise.
+   * @throws IOException If an I/O error occurs while reading or writing data.
+   * @throws InterruptedException If the thread executing the program is interrupted.
+   */
   public boolean purchasingTransactionsAndPriceComparison(boolean localGuestMode) throws IOException, InterruptedException {
     while (true) {
       clearScreen();
@@ -680,6 +848,18 @@ public class Farmermarket {
       }
     }
   }
+  /**
+   * Recursively multiplies two matrices and stores the result in another matrix.
+   *
+   * @param A The first matrix to multiply.
+   * @param B The second matrix to multiply.
+   * @param C The matrix to store the result.
+   * @param rowA The starting row index of matrix A.
+   * @param colA The starting column index of matrix A.
+   * @param rowB The starting row index of matrix B.
+   * @param colB The starting column index of matrix B.
+   * @param size The size of the matrices.
+   */
   public void recursiveMatrixMultiply(int[][] A, int[][] B, int[][] C, int rowA, int colA, int rowB, int colB, int size) {
     if (size == 1) {
       C[rowA][colB] += A[rowA][colA] * B[rowB][colB];
@@ -702,6 +882,11 @@ public class Farmermarket {
       recursiveMatrixMultiply(A, B, C, rowA + newSize, colA + newSize, rowB + newSize, colB + newSize, newSize);
     }
   }
+  /**
+   * Initializes a dynamic programming array for the matrix chain multiplication problem.
+   *
+   * @param n The size of the array.
+   */
   public void initializeDP(int n) {
     dp = new int[n][n];
     for (int i = 0; i < n; i++) {
@@ -710,6 +895,14 @@ public class Farmermarket {
       }
     }
   }
+  /**
+   * Solves the matrix chain multiplication problem using memorized recursion.
+   *
+   * @param dimensions The dimensions of the matrices.
+   * @param i The starting index.
+   * @param j The ending index.
+   * @return The minimum multiplication cost.
+   */
   public int MCM_MemorizedRecursive(int[] dimensions, int i, int j) {
     if (i == j) {
       return 0;
@@ -728,7 +921,12 @@ public class Farmermarket {
     dp[i][j] = min;
     return min;
   }
-
+  /**
+   * Solves the matrix chain multiplication problem using dynamic programming.
+   *
+   * @param dimensions The dimensions of the matrices.
+   * @return The minimum multiplication cost.
+   */
   public int MCM_DynamicProgramming(int[] dimensions) {
     int n = dimensions.length;
     int[][] dp = new int[n][n];
@@ -751,6 +949,13 @@ public class Farmermarket {
     }
     return dp[1][n - 1];
   }
+  /**
+   * Displays market information options and handles user input.
+   *
+   * @return True if the operation is successful, false otherwise.
+   * @throws IOException If an I/O error occurs while reading data.
+   * @throws InterruptedException If the thread executing the program is interrupted.
+   */
   public boolean marketInformations() throws IOException, InterruptedException {
     clearScreen();
     while (true) {

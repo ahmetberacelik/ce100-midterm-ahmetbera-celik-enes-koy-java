@@ -1,15 +1,27 @@
+/**
+ * @file MinHeap.java
+ *
+ * @brief This file contains the implementation of the MinHeap class.
+ */
 package com.bera.farmermarket;
-
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Represents a MinHeap data structure for storing ProductSeason objects.
+ */
 public class MinHeap {
-    private List<ProductSeason> items;
-
+    private List<ProductSeason> items; /**< The list containing the items in the min heap. */
+    /**
+     * Constructs an empty MinHeap.
+     */
     public MinHeap() {
         this.items = new ArrayList<>();
     }
-
+    /**
+     * Inserts a ProductSeason item into the MinHeap.
+     *
+     * @param item the ProductSeason item to insert
+     */
     public void insert(ProductSeason item) {
         items.add(item);
         int i = items.size() - 1;
@@ -22,6 +34,11 @@ public class MinHeap {
         }
         items.set(i, item);
     }
+    /**
+     * Removes and returns the smallest item from the MinHeap.
+     *
+     * @return the smallest item in the MinHeap
+     */
 
     public ProductSeason remove() {
         if (items.size() == 0) return null;
@@ -33,7 +50,11 @@ public class MinHeap {
         }
         return removedItem;
     }
-
+    /**
+     * Adjusts the heap to maintain the heap property starting from the given index.
+     *
+     * @param i the index to start heapifying from
+     */
     private void heapify(int i) {
         int left = 2 * i + 1;
         int right = 2 * i + 2;
@@ -52,7 +73,11 @@ public class MinHeap {
             heapify(smallest);
         }
     }
-
+    /**
+     * Checks if the MinHeap is empty.
+     *
+     * @return true if the MinHeap is empty, false otherwise
+     */
     public boolean isEmpty() {
         return items.isEmpty();
     }
