@@ -987,7 +987,7 @@ public class Farmermarket {
               totalIncome += C[i][j];
             }
           }
-          System.out.println("Market's Total Income: " + totalIncome);
+          System.out.println("Market's Total Product Price: " + totalIncome);
           take_enter_input();
           break;
         case 2:
